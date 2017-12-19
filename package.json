@@ -1,0 +1,12 @@
+{
+	"name": "App",
+	"main": "server.js",
+	"author": "a",
+	"version": "0.0.0",
+	"dependencies": {
+		"body-parser": "^1.10.2",
+		"express": "latest",
+		"express-session": "^1.10.1",
+		"mongoose": "^4.13.3"
+	}
+}
