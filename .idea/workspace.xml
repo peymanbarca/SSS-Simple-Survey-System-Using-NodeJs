@@ -102,10 +102,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="some foldering&#10;add Dockerfile and .sh script for deploy dockerized&#10;some commenting and specify next version todos" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="435" y="97" width="1081" height="910" key="CommitChangelistDialog2" timestamp="1585301208397">
+    <state x="435" y="97" width="1081" height="910" key="CommitChangelistDialog2" timestamp="1585301955949">
       <screen x="41" y="27" width="1879" height="1053" />
     </state>
-    <state x="435" y="97" width="1081" height="910" key="CommitChangelistDialog2/41.27.1879.1053@41.27.1879.1053" timestamp="1585301208397" />
+    <state x="435" y="97" width="1081" height="910" key="CommitChangelistDialog2/41.27.1879.1053@41.27.1879.1053" timestamp="1585301955949" />
     <state width="1856" height="248" key="GridCell.Tab.0.bottom" timestamp="1585301897010">
       <screen x="41" y="27" width="1879" height="1053" />
     </state>
@@ -122,9 +122,9 @@
       <screen x="41" y="27" width="1879" height="1053" />
     </state>
     <state width="1856" height="248" key="GridCell.Tab.0.right/41.27.1879.1053@41.27.1879.1053" timestamp="1585301897009" />
-    <state x="575" y="289" width="800" height="526" key="Vcs.Push.Dialog.v2" timestamp="1585301210197">
+    <state x="575" y="289" width="800" height="526" key="Vcs.Push.Dialog.v2" timestamp="1585301913960">
       <screen x="41" y="27" width="1879" height="1053" />
     </state>
-    <state x="575" y="289" width="800" height="526" key="Vcs.Push.Dialog.v2/41.27.1879.1053@41.27.1879.1053" timestamp="1585301210197" />
+    <state x="575" y="289" width="800" height="526" key="Vcs.Push.Dialog.v2/41.27.1879.1053@41.27.1879.1053" timestamp="1585301913960" />
   </component>
 </project>
