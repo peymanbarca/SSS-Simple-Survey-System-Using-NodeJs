@@ -4,6 +4,7 @@ var app=express();
 var session = require('express-session');
 var mong=require('mongoose');
 
+// ----------------------- connect to mongo db with url ----------
 mong.connect("mongodb://localhost/test1")
 var db_state=mong.connection
 
@@ -60,9 +61,11 @@ app.use(session({
     resave:false,
     saveUninitialized:true
 }));
-app.use(express.static(__dirname + "/static2"));
+app.use(express.static(__dirname + "/static"));
 app.use(bp.json());
 app.use(bp.urlencoded({extended:true}));
+
+// ------------- sample import data ------
 //
 // var users={user1 : "123" , user2 : "1234" , user3 : "12345"};  //replace of db for users
 // var comments={
@@ -70,22 +73,36 @@ app.use(bp.urlencoded({extended:true}));
 //     "user2" : ["man user 2 hastam ---(--"]
 // }; 		//replace of db for comments
 
+
+
+
+
+// ---------------------------------------------------------- Main BackEnd REST APIs ----------------------------------------------
+
+// ---------------------- retrieve home page ---------
 app.get("/" , function(req,resp,next)
 {
     console.log("GET");
-    resp.sendFile(__dirname + "/static2/home.html");
+    resp.sendFile(__dirname + "/static/home.html");
 });
 
-// app.get("/login" , function(req,resp,next)
-// {
-//     console.log("GET");
-//     resp.sendFile(__dirname + "/static2/login.html");
-// });
 
+/*
+*   ,--. ,--.                            ,---.                              ,--.
+|  | |  |  ,---.   ,---.  ,--.--.   '   .-'   ,---.  ,--.--. ,--.  ,--. `--'  ,---.  ,---.
+|  | |  | (  .-'  | .-. : |  .--'   `.  `-.  | .-. : |  .--'  \  `'  /  ,--. | .--' | .-. :
+'  '-'  ' .-'  `) \   --. |  |      .-'    | \   --. |  |      \    /   |  | \ `--. \   --.
+ `-----'  `----'   `----' `--'      `-----'   `----' `--'       `--'    `--'  `---'  `----'
+*
+* */
+// ----------------------------------------------------- User service (v0) ---------
+// ----------------- get session info ---------------
 app.post("/getinfo" , function(req,resp,next)
 {
     resp.json(req.session);
 });
+
+// ---------------------------- login ---------
 app.post("/login" , function(req,resp,next)
 {
     if (req.session.auth != undefined)
@@ -109,7 +126,7 @@ app.post("/login" , function(req,resp,next)
 
                 }
                 else {
-                    resp.json({status: "false", msg: "wrond password !!!"});
+                    resp.json({status: "false", msg: "wrong password !!!"});
                 }
             }
             else {
@@ -120,13 +137,16 @@ app.post("/login" , function(req,resp,next)
 })
 
 
-
+// ------------------- logout ----------------
 app.post("/logout" , function(req,resp,next)
 {
     req.session.auth =undefined; //namade log out shodan
     resp.json({status : "true" , msg : "Logged out!"});
 
 })
+
+
+// ----------------- sign-up -------------------
 app.post("/signup" , function(req,resp,next)
 {
     //with DB
@@ -164,6 +184,22 @@ app.post("/signup" , function(req,resp,next)
     }
 });
 
+
+// --------------------- todo : user service v1 : to use JWT for sign-up & login and not use server session -------
+
+
+
+/*
+* ,-----.                                                  ,--.      ,---.                              ,--.
+'  .--./  ,---.  ,--,--,--. ,--,--,--.  ,---.  ,--,--,  ,-'  '-.   '   .-'   ,---.  ,--.--. ,--.  ,--. `--'  ,---.  ,---.
+|  |     | .-. | |        | |        | | .-. : |      \ '-.  .-'   `.  `-.  | .-. : |  .--'  \  `'  /  ,--. | .--' | .-. :
+'  '--'\ ' '-' ' |  |  |  | |  |  |  | \   --. |  ||  |   |  |     .-'    | \   --. |  |      \    /   |  | \ `--. \   --.
+ `-----'  `---'  `--`--`--' `--`--`--'  `----' `--''--'   `--'     `-----'   `----' `--'       `--'    `--'  `---'  `----'
+
+* */
+// ------------------------ Commenting (v0) ------------------------
+
+// --------------- submit comment ---------
 app.post("/submitComment" , function(req,resp,next)
 {
     if(req.session.auth.username != undefined)
@@ -185,6 +221,7 @@ app.post("/submitComment" , function(req,resp,next)
 
 });
 
+// --------------- get all comments ----------
 app.post("/getComment" , function(req,resp,next)
 {
     comment_model.find({},function (err,comments)
@@ -199,5 +236,12 @@ app.post("/getComment" , function(req,resp,next)
 
 });
 
-app.listen(8000);
-console.log("app is running on port 8000");
+// -------------- todo : comment service to check current login user via JWT token, add more functionalities such as lick,dislike,reply,...
+
+
+// ------------ deploy ------------
+
+PORT = 8000
+app.listen(PORT,'0.0.0.0');
+console.log("app is running on port "+PORT);
+console.log('http://'+'0.0.0.0'+':'+PORT)
